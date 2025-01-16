@@ -1,5 +1,5 @@
 # Contact Manager
-* a personal contact manager made for COP4331*
+*a personal contact manager made for COP4331* 
 
 ## Group 11 Members
 [Joshua Bandy](https://github.com/Lobbbey) API
