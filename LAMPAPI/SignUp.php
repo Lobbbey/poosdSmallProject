@@ -33,6 +33,13 @@
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
+		while ($row = $result->fetch_array(MYSQLI_NUM)) {
+			foreach ($row as $r) {
+				echo "$r ";
+			}
+			echo "\n";
+		}
         if ($result){
             return 1;
         }
