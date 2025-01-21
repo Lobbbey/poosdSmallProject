@@ -33,7 +33,7 @@
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
+		//$row = $result->fetch_assoc();
 
 		if( $row = $result->fetch_assoc()  )
 		{
