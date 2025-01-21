@@ -13,48 +13,25 @@
 	}
 	else
 	{
-		if (userAlreadyExists($conn, $login)){
-            returnWithError("User Already Exists");
-        }
-        else
-        {
-            $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) Values (?,?,?,?)");
-            $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
-            $stmt->execute();
-            returnWithError("Finished Successfully");
-        }
-		$stmt->close();
-		$conn->close();
-	}
-	
-    function userAlreadyExists($conn, $login)
-    {
-        $stmt = $conn->prepare("SELECT firstName FROM Users WHERE Login=?");
+		$stmt = $conn->prepare("SELECT firstName FROM Users WHERE Login=?");
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		//$row = $result->fetch_assoc();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			return 1;
+			returnWithError("User Already Exists");
 		}
 		else
 		{
-			return 0;
+			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) Values (?,?,?,?)");
+            $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
+            $stmt->execute();
+            returnWithError("Finished Successfully");
 		}
-
-		/*while ($row = $result->fetch_array(MYSQLI_NUM)) {
-			foreach ($row as $r) {
-				echo $r;
-			}
-			echo "\n";
-		}
-        if ($result){
-            return 1;
-        }
-        return 0;*/
-    }
+		$stmt->close();
+		$conn->close();
+	}
 
 	function getRequestInfo()
 	{
