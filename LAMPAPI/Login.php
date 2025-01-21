@@ -1,9 +1,9 @@
 <?php
 	$inData = getRequestInfo();
 	
-	//$id = 0;
-	//$firstName = "";
-	//$lastName = "";
+	$id = 0;
+	$firstName = "";
+	$lastName = "";
 
     $conn = new mysqli("localhost", "root", "Group11COP", "COP4331"); 	
 	if( $conn->connect_error )
