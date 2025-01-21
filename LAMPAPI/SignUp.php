@@ -34,7 +34,8 @@
 		$stmt->execute();
 		$result = $stmt->get_result();
 		$row = $result->fetch_assoc();
-		echo is_null($row);
+		$ah = is_null($row);
+		echo $ah;
 		/*while ($row = $result->fetch_array(MYSQLI_NUM)) {
 			foreach ($row as $r) {
 				echo $r;
