@@ -22,9 +22,9 @@
             $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) Values (?,?,?,?)");
             $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
             $stmt->execute();
+			$stmt->close();
             returnWithError("Finished Successfully");
         }
-		$stmt->close();
 		$conn->close();
 	}
 	
@@ -34,9 +34,11 @@
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
-        if ($result){
+		if ($result){
+			$stmt->close();
             return 1;
         }
+		$stmt->close();
         return 0;
     }
 
