@@ -4,8 +4,7 @@
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
 
-    $conn = new mysqli("localhost", "root", "Group11COP", "COP4331");
-
+    $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
     if($conn->connect_error){
         returnWithError($conn->connect_error);
     }
@@ -15,7 +14,7 @@
         $stmt->execute();
         $stmt->close();
         $conn->close();
-        returnWithError("");
+        returnWithError("Finished Successfully");
     }
 
     function getRequestInfo()
