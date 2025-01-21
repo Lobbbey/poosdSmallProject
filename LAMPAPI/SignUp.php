@@ -34,18 +34,26 @@
 		$stmt->execute();
 		$result = $stmt->get_result();
 		$row = $result->fetch_assoc();
-		$ah = is_null($row);
-		echo $ah;
+
+		if( $row = $result->fetch_assoc()  )
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+
 		/*while ($row = $result->fetch_array(MYSQLI_NUM)) {
 			foreach ($row as $r) {
 				echo $r;
 			}
 			echo "\n";
-		}*/
+		}
         if ($result){
             return 1;
         }
-        return 0;
+        return 0;*/
     }
 
 	function getRequestInfo()
