@@ -13,7 +13,7 @@
 	}
 	else
 	{
-		if (userAlreadyExists($conn, $firstName, $lastName)){
+		if (userAlreadyExists($conn, $login)){
             returnWithError("User Already Exists");
         }
         else
@@ -21,16 +21,16 @@
             $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) Values (?,?,?,?)");
             $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
             $stmt->execute();
+            returnWithError("Finished Successfully");
         }
-        returnWithError("");
 		$stmt->close();
 		$conn->close();
 	}
 	
-    function userAlreadyExists($conn, $firstName, $lastName)
+    function userAlreadyExists($conn, $login)
     {
-        $stmt = $conn->prepare("SELECT firtName,lastName FROM Users WHERE FirstName=? AND LastName=?");
-		$stmt->bind_param("ss", $firstName, $lastName);
+        $stmt = $conn->prepare("SELECT firstName FROM Users WHERE Login=?");
+		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
         if ($result){
