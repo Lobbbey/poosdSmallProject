@@ -5,8 +5,7 @@
     $phone = $inData["phone"];
     $email = $inData["email"];
     $userId = $inData["userId"];
-    $conn = new mysqli("localhost", "root", "Group11COP", "COP4331");
-
+    $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
     if($conn->connect_error){
         returnWithError($conn->connect_error);
     }
