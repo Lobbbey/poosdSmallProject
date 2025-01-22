@@ -21,11 +21,11 @@
             }
             $searchAmnt++;
             $searchResults .= '{
-                                "FirstName":"'.$row["FirstName"].'"
-                                "LastName":"'.$row["LastName"].'"
-                                "Phone":"'.$row["Phone"].'"
-                                "Email":"'.$row["Email"].'"
-                                "UserId":"'.$row["UserId"].'"
+                                "FirstName":"'.$row["FirstName"].'",
+                                "LastName":"'.$row["LastName"].'",
+                                "Phone":"'.$row["Phone"].'",
+                                "Email":"'.$row["Email"].'",
+                                "UserId":"'.$row["UserId"].'",
                                 "ID":"'.$row["ID"].'"
                                 }';
         }
