@@ -26,7 +26,8 @@
                                 "Phone":"'.$row["Phone"].'"
                                 "Email":"'.$row["Email"].'"
                                 "UserId":"'.$row["UserId"].'"
-                                "ID":"'.$row["ID"].'"}';
+                                "ID":"'.$row["ID"].'"
+                                }';
         }
         
         if( $searchAmnt == 0)
