@@ -8,7 +8,7 @@
         returnWithError($conn->connect_error);
     }
     else{
-        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like?) AND UserID = ?");
+        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ?) AND UserID = ?");
         $searchName = "%" . $inData["search"] . "%";
         $stmt->bind_param("sss", $searchName, $searchName, $inData["userId"]);
         $stmt->execute();
@@ -23,7 +23,7 @@
             $searchResults .= '{
                                 "FirstName":"'.$row["FirstName"].'"
                                 "LastName":"'.$row["LastName"].'"
-                                "PhoneNumber":"'.$row["PhoneNumber"].'"
+                                "Phone":"'.$row["Phone"].'"
                                 "Email":"'.$row["Email"].'"
                                 "UserId":"'.$row["UserId"].'"
                                 "ID":"'.$row["ID"].'"}';

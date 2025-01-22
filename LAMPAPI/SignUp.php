@@ -6,14 +6,14 @@
     $login = $inData["login"];
     $password = $inData["password"];
 
-    $conn = new mysqli("localhost", "root", "Group11COP", "COP4331"); 	
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT firstName FROM Users WHERE Login=?");
+		$stmt = $conn->prepare("SELECT * FROM Users WHERE Login=?");
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();

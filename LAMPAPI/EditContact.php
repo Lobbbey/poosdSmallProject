@@ -5,6 +5,7 @@
     $phone = $inData["phone"];
     $email = $inData["email"];
     $userId = $inData["userId"];
+    $ID = $inData["ID"];
     $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
     if($conn->connect_error){
         returnWithError($conn->connect_error);
@@ -14,8 +15,8 @@
                                                     LastName = ?,
                                                     PhoneNumber = ?,
                                                     Email = ?,
-                                                    WHERE ID = ?");
-        $stmt->bind_param("sssss", $firstName, $lastName, $phone, $email, $userId);
+                                                    WHERE ID = ? AND userID = ?");
+        $stmt->bind_param("ssssss", $firstName, $lastName, $phone, $email, $ID, $userID);
         $stmt->execute();
         $stmt->close();
         $conn->close();
