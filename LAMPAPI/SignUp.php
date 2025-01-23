@@ -3,7 +3,7 @@
 	
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
-    $login = $inData["login"];
+    $username = $inData["username"];
     $password = $inData["password"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
@@ -13,7 +13,7 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Users WHERE Login=?");
+		$stmt = $conn->prepare("SELECT * FROM Users WHERE Username=?");
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -24,8 +24,8 @@
 		}
 		else
 		{
-			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) Values (?,?,?,?)");
-            $stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
+			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Username, Password) Values (?,?,?,?)");
+            $stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
             $stmt->execute();
             returnWithError("Finished Successfully");
 		}
