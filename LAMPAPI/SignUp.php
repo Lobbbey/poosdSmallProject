@@ -14,7 +14,7 @@
 	else
 	{
 		$stmt = $conn->prepare("SELECT * FROM Users WHERE Username=?");
-		$stmt->bind_param("s", $login);
+		$stmt->bind_param("s", $username);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
