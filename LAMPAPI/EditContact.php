@@ -13,10 +13,10 @@
     else{
         $stmt = $conn->prepare("UPDATE Contacts Set FirstName = ?, 
                                                     LastName = ?,
-                                                    PhoneNumber = ?,
+                                                    Phone = ?,
                                                     Email = ?,
-                                                    WHERE ID = ? AND userID = ?");
-        $stmt->bind_param("ssssss", $firstName, $lastName, $phone, $email, $ID, $userID);
+                                                    WHERE ID = ? AND UserID = ?");
+        $stmt->bind_param("ssssss", $firstName, $lastName, $phone, $email, $ID, $userId);
         $stmt->execute();
         $stmt->close();
         $conn->close();

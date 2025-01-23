@@ -11,8 +11,7 @@
 	{
 		returnWithError( $conn->connect_error );
 	}
-	else
-	{
+	else{
 		$stmt = $conn->prepare("SELECT * FROM Users WHERE Username=?");
 		$stmt->bind_param("s", $username);
 		$stmt->execute();
@@ -22,12 +21,11 @@
 		{
 			returnWithError("User Already Exists");
 		}
-		else
-		{
-			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Username, Password) Values (?,?,?,?)");
-            $stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
-            $stmt->execute();
-            returnWithError("Finished Successfully");
+		else{
+		$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Username, Password) Values (?,?,?,?)");
+		$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
+		$stmt->execute();
+		returnWithError("Finished Successfully");
 		}
 		$stmt->close();
 		$conn->close();
