@@ -13,13 +13,9 @@
 	{
 		returnWithError("error: Could not connect to database");
 	}
-<<<<<<< HEAD
 	else
 	{
 		//Returns if usename already exists in database
-=======
-	else{
->>>>>>> 165bc0d86d552737ebc9d4f2f28e8f4069f48d7e
 		$stmt = $conn->prepare("SELECT * FROM Users WHERE Username=?");
 		$stmt->bind_param("s", $username);
 		$stmt->execute();
@@ -29,7 +25,6 @@
 		{
 			returnWithError("error: User Already Exists");
 		}
-<<<<<<< HEAD
 		else
 		{
 			//Inserts user into database
@@ -37,13 +32,6 @@
             $stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
             $stmt->execute();
             sendResultInfoAsJson('{"result":"Finished Successfully"}');
-=======
-		else{
-		$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Username, Password) Values (?,?,?,?)");
-		$stmt->bind_param("ssss", $firstName, $lastName, $username, $password);
-		$stmt->execute();
-		returnWithError("Finished Successfully");
->>>>>>> 165bc0d86d552737ebc9d4f2f28e8f4069f48d7e
 		}
 		
 		$stmt->close();
