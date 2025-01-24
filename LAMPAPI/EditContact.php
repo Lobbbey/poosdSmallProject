@@ -1,42 +1,50 @@
 <?php
+    //Variables taken from js file
     $inData = getRequestInfo();
+
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
     $phone = $inData["phone"];
     $email = $inData["email"];
-    $userId = $inData["userId"];
     $ID = $inData["ID"];
+
+    //Interactions with database
     $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
     if($conn->connect_error){
-        returnWithError($conn->connect_error);
+        returnWithError("error: Could not connect to database");
     }
     else{
-        $stmt = $conn->prepare("UPDATE Contacts Set FirstName = ?, 
+        //Updates contact in database
+        $stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, 
                                                     LastName = ?,
-                                                    PhoneNumber = ?,
-                                                    Email = ?,
-                                                    WHERE ID = ? AND userID = ?");
-        $stmt->bind_param("ssssss", $firstName, $lastName, $phone, $email, $ID, $userID);
+                                                    Phone = ?,
+                                                    Email = ?
+                                                    WHERE ID = ?");
+        $stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $ID);
         $stmt->execute();
+        sendResultInfoAsJson('{"result":"Finished Successfully"}');
+
         $stmt->close();
         $conn->close();
-        returnWithError("Finished Successfully");
     }
 
+    //Gets input from file in key-value pairs
     function getRequestInfo()
     {
         return json_decode(file_get_contents('php://input'), true);
     }
 
+    //Returns JSON object
     function sendResultInfoAsJson($obj)
     {
         header('Content-type: application/json');
         echo $obj;
     }
 
+    //Returns JSON error message
     function returnWithError($err)
     {
-        $retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+        $retValue = '{"result":"' . $err . '"}';
         sendResultInfoAsJson($retValue);
     }
 ?>
