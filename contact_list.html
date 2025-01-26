@@ -8,22 +8,18 @@
   </head>
 <body>
     <div class="page">
-        <div class="left">
-            <h1 class="headers">Your Contacts</h1>
-            <div id="contact-container" class="container">
+        <div class="container">
+            <h1 class="headers">Contact List</h1>
+            <div class="search-container">
+                <input 
+                    id="search-input" 
+                    class="input_box" 
+                    type="text" 
+                    placeholder="Search Contacts" 
+                    oninput="searchContacts(this.value)" 
+                />
             </div>
-        </div>
-        <div class="right">
-            <h1 class="headers">Add a New Contact</h1>
-            <form method="post" onsubmit="return addContact(event, this)">
-                <div class="container">
-                    <input class="input_box" type="text" placeholder="First Name" name="firstName" required>
-                    <input class="input_box" type="text" placeholder="Last Name" name="lastName" required>
-                    <input class="input_box" type="text" placeholder="Phone Number" name="phone" required>
-                    <input class="input_box" type="email" placeholder="Email Address" name="email" required>
-                    <button type="submit">Add Contact</button>
-                </div>
-            </form>
+            <button class="logout-button" onclick="logout()">Logout</button>
         </div>
     </div>
     <script src="js/contactList.js"></script>
