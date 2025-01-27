@@ -70,8 +70,8 @@ function readCookie(){
     userId = -1;
     let data = document.cookie;
     let splits = data.split(",");
-    for(var 1 = 0; i < splits.length; i++){
-        let thisOne = splits[i].trim()l
+    for(var i = 0; i < splits.length; i++){
+        let thisOne = splits[i].trim();
         let tokens = thisOne.split("=");
         if(tokens[0] == "firstName"){
             firstName = tokens[1];
@@ -85,7 +85,7 @@ function readCookie(){
     }
 
     if(userId < 0){
-        window.location.href = "index.html" //Ask where it should point
+        window.location.href = "index.html"  
     }
     else{
         document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
@@ -101,14 +101,9 @@ function doLogout(){
 }
 
 function addContact(){
-    let firstName = document.getElementById("
+ //   let firstName = document.getElementById("
 
 }
-
-
-
-
-
 
 function foo() {
     console.log("FOO!");

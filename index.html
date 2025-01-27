@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="js/code.js"></script>
-    <script src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
 </head>
 <body>
     <div class="page">
@@ -16,7 +16,8 @@
                 <div class="container">
                     <input class="input_box" id="loginName" type="text" placeholder="Enter Email" name="email" required>
                     <input class="input_box" id="loginPassword" type="password" placeholder="Enter Password" name="password" required>
-                    <button type="submit" id="loginButton" onclick="doLogin();">Sign In</button>
+                    <button type="submit" id="loginButton" onclick="doLogin()">Sign In</button>
+	                <span id="loginResult"></span>
                 </div>
             </form>
         </div>
