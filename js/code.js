@@ -18,7 +18,7 @@ function doLogin()
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-	let tmp = {login:login,password:password};
+	let tmp = {username:login,password:password};
 //	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
 	
@@ -162,46 +162,54 @@ function signin(event, form) {
 }
 
 function signUp(event, form) {
-    event.preventDefault()
+    event.preventDefault();
+
     let firstName = document.getElementById("firstName").value;
     let lastName = document.getElementById("lastName").value;
     let login = document.getElementById("signUpUsername").value;
-	let password = document.getElementById("signUpPassword").value;
+    let password = document.getElementById("signUpPassword").value;
 
-    
-    if(firstName == "" || lastName == "" || login == "" || password == "")
-        alert("Missing fields. Please try again")
-    else {
-        let tmp = {firstName:firstName,lastName:lastName,username:login,password:password};
-        let jsonPayload = JSON.stringify(tmp);
-        let url = urlBase + '/SignUp' + extension;
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    if (firstName === "" || lastName === "" || login === "" || password === "") {
+        alert("Missing fields. Please try again");
+        return;
+    }
 
-        try {
-            xhr.onreadystatechange = function()  {
-                if (this.readyState == 4 && this.status == 200) {
-                    let jsonObject = JSON.parse( xhr.responseText );
-                    userId = jsonObject.id;
-            
-                    if( userId < 1 ) {		
-                        document.getElementById("Login").innerHTML = err.message;
+    document.getElementById("signupResult").innerHTML = "";
+
+    let tmp = { firstName: firstName, lastName: lastName, username: login, password: password };
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + '/SignUp.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    let jsonObject = JSON.parse(xhr.responseText);
+
+                    if (jsonObject.id < 1) {
+                        document.getElementById("signupResult").innerHTML = "Sign up failed: " + jsonObject.error;
                         return;
                     }
-            
+
+                    userId = jsonObject.id;
                     firstName = jsonObject.firstName;
                     lastName = jsonObject.lastName;
 
                     saveCookie();
+                    alert("Sign up successful!");
+                    console.log("Sign up successful!")
+                } else {
+                    document.getElementById("signupResult").innerHTML = `Error: ${this.statusText}`;
+                    console.log(`Error: ${this.statusText}`);
                 }
-            };
-            xhr.send(jsonPayload);
-        }
-        catch(err) {
-            document.getElementById("loginResult").innerHTML = err.message;
-        }
-
-        alert("Sign up successful!");
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("signupResult").innerHTML = err.message;
     }
 }
