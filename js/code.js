@@ -100,10 +100,45 @@ function doLogout(){
     window.location.href = "index.html";
 }
 
-function addContact(){
- //   let firstName = document.getElementById("
+function addContact(event,form){
+    //let firstName = document.getElementById("
+    event.preventDefault(); 
+     //collect details for form
+    let contactData = {
+        firstName: form["firstName"].value,
+        lastName: form["lastName"].value,
+        phone: form["phone"].value,
+        email: form["email"].value,
+        userId: userId 
+    };
 
+    let jsonPayload = JSON.stringify(contactData);
+    let url = `${urlBase}/addContact.${extension}`;
+
+    // Create and send the request
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); //correctly set request header
+
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.result === "Finished Successfully") {
+                    alert("Contact added successfully!");
+                    form.reset(); // Clear form inputs
+                } else {
+                    alert("failed to add contact: " + jsonObject.result);
+                }
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        console.error("error adding contact:", err.message);
+    }
 }
+
 
 function foo() {
     console.log("FOO!");
