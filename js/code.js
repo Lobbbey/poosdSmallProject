@@ -139,6 +139,15 @@ function addContact(event,form){
     }
 }
 
+function editContact(event, form){
+	
+}
+
+function deleteContact(event,form){
+}
+
+function searchContact(){
+}	
 
 function foo() {
     console.log("FOO!");
