@@ -160,3 +160,48 @@ function signin(event, form) {
 
     return false;
 }
+
+function signUp(event, form) {
+    event.preventDefault()
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let login = document.getElementById("signUpUsername").value;
+	let password = document.getElementById("signUpPassword").value;
+
+    
+    if(firstName == "" || lastName == "" || login == "" || password == "")
+        alert("Missing fields. Please try again")
+    else {
+        let tmp = {firstName:firstName,lastName:lastName,username:login,password:password};
+        let jsonPayload = JSON.stringify(tmp);
+        let url = urlBase + '/SignUp' + extension;
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+        try {
+            xhr.onreadystatechange = function()  {
+                if (this.readyState == 4 && this.status == 200) {
+                    let jsonObject = JSON.parse( xhr.responseText );
+                    userId = jsonObject.id;
+            
+                    if( userId < 1 ) {		
+                        document.getElementById("Login").innerHTML = err.message;
+                        return;
+                    }
+            
+                    firstName = jsonObject.firstName;
+                    lastName = jsonObject.lastName;
+
+                    saveCookie();
+                }
+            };
+            xhr.send(jsonPayload);
+        }
+        catch(err) {
+            document.getElementById("loginResult").innerHTML = err.message;
+        }
+
+        alert("Sign up successful!");
+    }
+}

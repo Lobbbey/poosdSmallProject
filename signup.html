@@ -1,4 +1,22 @@
-<!DOCTYPE html>
 <html lang="en">
-<h1>SIGN UP PAGE</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script type="text/javascript" src="js/md5.js"></script>
+</head>
+<body>
+    <div class="signUpDiv">
+        <h1>SIGN UP PAGE</h1>
+        <form onsubmit="return signUp(event, this);">
+            <input class="input_box" id="firstName" type="text" placeholder="First Name" required>
+            <input class="input_box" id="lastName" type="text" placeholder="Last Name" required>
+            <input class="input_box" id="signUpUsername" type="text" placeholder="Email" required>
+            <input class="input_box" id="signUpPassword" type="password" placeholder="Password" required>
+            <button type="submit" id="signUpButton">Sign Up!</button>
+        </form>
+    </div>
+    <script src="js/code.js"></script>
+</body>
 </html>
