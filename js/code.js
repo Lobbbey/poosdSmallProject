@@ -14,12 +14,12 @@ function doLogin()
 	
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
+	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-	let tmp = {username:login,password:password};
-//	var tmp = {login:login,password:hash};
+	//let tmp = {username:login,password:password};
+	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
 	
 	let url = urlBase + '/Login.' + extension;
@@ -149,14 +149,10 @@ function deleteContact(event,form){
 function searchContact(){
 }	
 
-function foo() {
-    console.log("FOO!");
-}
-
 function signin(event, form) {
     event.preventDefault();
-    console.log(form.email.value);
-    console.log(form.password.value);
+//    console.log(form.email.value);
+//   console.log(form.password.value);
 
     return false;
 }
@@ -175,8 +171,8 @@ function signUp(event, form) {
     }
 
     document.getElementById("signupResult").innerHTML = "";
-
-    let tmp = { firstName: firstName, lastName: lastName, username: login, password: password };
+    var hashPass = md5(password);
+    let tmp = { firstName: firstName, lastName: lastName, username: login, password: hashPass };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SignUp.' + extension;
 
@@ -200,8 +196,10 @@ function signUp(event, form) {
                     lastName = jsonObject.lastName;
 
                     saveCookie();
+		    window.location.href = "contact_list.html";
                     alert("Sign up successful!");
                     console.log("Sign up successful!")
+
                 } else {
                     document.getElementById("signupResult").innerHTML = `Error: ${this.statusText}`;
                     console.log(`Error: ${this.statusText}`);
