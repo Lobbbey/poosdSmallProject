@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact List</title>
-    <link rel="stylesheet" href="/css/styles.css"> 
+    <title>Neptune's Contact List</title>
+    <link rel="stylesheet" href="/css/contacts.css"> 
   </head>
 <body>
         <div class = "sidenav">
-
             <button type="button" id="logoutButton" class="sidebuttons font" onclick="doLogout();">Logout</button>
-		    <a href="contacts.html">Contacts</a>
-		    <a href="members.html">About Us</a>
         </div>
 
     <div class="page">
@@ -23,10 +20,10 @@
                     class="input_box" 
                     type="text" 
                     placeholder="Search Contacts" 
-                    oninput="searchContacts(this.value)" 
+                    oninput="searchContact(this.value)" 
                 />
             </div>
-            <button class="logout-button" onclick="logout()">Logout</button>
+            <button  onclick="searchContact()">Search</button>
         </div>
     </div>
     <script src="js/code.js"></script>
