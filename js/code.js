@@ -99,60 +99,10 @@ function doLogout(){
     window.location.href = "index.html";
 }
 
-function addContact(event,form){
-    //let firstName = document.getElementById("
-    event.preventDefault(); 
-     //collect details for form
-    let contactData = {
-        firstName: form["firstName"].value,
-        lastName: form["lastName"].value,
-        phone: form["phone"].value,
-        email: form["email"].value,
-        userId: userId 
-    };
-
-    let jsonPayload = JSON.stringify(contactData);
-    let url = `${urlBase}/addContact.${extension}`;
-
-    // Create and send the request
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); //correctly set request header
-
-    try {
-        xhr.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let jsonObject = JSON.parse(xhr.responseText);
-
-                if (jsonObject.result === "Finished Successfully") {
-                    alert("Contact added successfully!");
-                    form.reset(); // Clear form inputs
-                } else {
-                    alert("failed to add contact: " + jsonObject.result);
-                }
-            }
-        };
-        xhr.send(jsonPayload);
-    } catch (err) {
-        console.error("error adding contact:", err.message);
-    }
-}
-
-function editContact(event, form){
-	
-}
-
-function deleteContact(event,form){
-}
-
-function searchContact(){
-
-}	
-
 function signin(event, form) {
     event.preventDefault();
-//    console.log(form.email.value);
-//   console.log(form.password.value);
+    //    console.log(form.email.value);
+    //   console.log(form.password.value);
     return false;
 }
 
@@ -195,7 +145,7 @@ function signUp(event, form) {
                     lastName = jsonObject.lastName;
 
                     saveCookie();
-		            window.location.href = "contact_list.html";
+                    window.location.href = "contact_list.html";
                     alert("Sign up successful!");
                     console.log("Sign up successful!")
 
@@ -210,3 +160,50 @@ function signUp(event, form) {
         document.getElementById("signupResult").innerHTML = err.message;
     }
 }
+
+function addContact(){
+    let firstName = document.getElementById("addFirst").value;
+    let lastName = document.getElementById("addLast").value;
+    let phone = document.getElementById("addPhone").value;
+    let email = document.getElementById("addEmail").value;
+
+    let contactData = {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        userId: userId 
+    };
+
+    let jsonPayload = JSON.stringify(contactData);
+    let url = urlBase + '/AddContact.' + extension;
+
+    // Create and send the request
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); //correctly set request header
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+                if (jsonObject.result === "Finished Successfully") {
+                    alert("Contact added successfully!");
+                    document.getElementById("addingContacts").reset(); // Clear form inputs
+                } else {
+                    alert("failed to add contact: " + jsonObject.result);
+                } 
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        console.error("error adding contact:", err.message);
+    }
+}
+
+function searchContact() {}
+
+function editContact(event, form){}
+
+function deleteContact(event,form){}
+
+function showContacts(){}
