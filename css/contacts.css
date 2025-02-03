@@ -1,4 +1,14 @@
 /* content from leinecker */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    /* Optional: clean font */
+}
+
 .content {
     padding: 1px 16px;
     height: 1000px;

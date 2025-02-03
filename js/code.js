@@ -172,7 +172,7 @@ function addContact(){
         lastName: lastName,
         phone: phone,
         email: email,
-        userId: userId 
+        userId: userId
     };
 
     let jsonPayload = JSON.stringify(contactData);
@@ -200,10 +200,12 @@ function addContact(){
     }
 }
 
-function searchContact() {}
+function searchContact(){}
 
 function editContact(event, form){}
 
 function deleteContact(event,form){}
 
-function showContacts(){}
+function findContacts(){}
+
+function displayContacts(){}
