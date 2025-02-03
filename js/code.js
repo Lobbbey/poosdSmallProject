@@ -2,8 +2,6 @@ const urlBase = 'http://cop4331g11.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
-let firstName = "";
-let lastName = "";
 
 function doLogin()
 {
@@ -62,7 +60,11 @@ function saveCookie(){
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime()+(minutes*60*1000));
-    document.cookie = "firstName=" + firstName + ",lastName=" + lastName +",userId=" + userId + ";expires=" + date.toGMTString();
+    document.cookie = 
+        "firstName=" + firstName + 
+        ";lastName=" + lastName + 
+        ";userId=" + userId + 
+        ";expires=" + date.toGMTString();
 }
 
 function readCookie(){
