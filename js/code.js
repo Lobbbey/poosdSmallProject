@@ -202,11 +202,46 @@ function addContact(){
     }
 }
 
-function searchContact(){}
-
 function editContact(event, form){}
 
-function deleteContact(event,form){}
+function deleteContact(){
+    var firstName = document.getElementById("firstName" + no).innerText;
+    var lastName = document.getElementById("lastName" + no).innerText;
+
+    let check = confirm ('Are you sure you want to delete ' + firstName + ' ' + lastName + 'as a contact?');
+
+    if(check){
+        document.getElementById("row" + no + "").outerHTML = "";
+        let tmp = {
+            firstName: firstName,
+            lastName: lastName,
+            userId: userId
+        };
+    }
+
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + '/DeleteContact.' + extension;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try{
+        xhr.onreadystatechange = function(){
+            if(this.readState == 4 && this.status == 200){
+                let jsonObject = JSON.parse(xhr.responseText);
+                if (jsonObject.result === "Finished Successfully") {
+                    alert("Contact deleted successfully!");
+                    document.getElementById("addingContacts").reset(); // Clear form inputs
+                } else {
+                    alert("failed to delete contact: " + jsonObject.result);
+                } 
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch(err){
+        console.error("error deleteing contact:", err.message);
+    }
+}
+
+function searchContact() {}
 
 function findContacts(){}
 
