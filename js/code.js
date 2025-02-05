@@ -31,7 +31,7 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.ID;
+				userId = jsonObject.userId;
                 console.log(userId);
 		
 				if( userId < 1 )
@@ -142,7 +142,7 @@ function signUp(event, form) {
                         return;
                     }
 
-                    userId = jsonObject.id;
+                    userId = jsonObject.userId;
                     firstName = jsonObject.firstName;
                     lastName = jsonObject.lastName;
 
