@@ -3,6 +3,7 @@ const extension = 'php';
 
 let userId = 0;
 
+
 function doLogin()
 {
 	userId = 0;
@@ -10,7 +11,7 @@ function doLogin()
 	lastName = "";
 	
 	let login = document.getElementById("loginName").value;
-    let password = document.getElementById("loginPassword").value;
+        let password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
@@ -31,8 +32,8 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.ID;
-                console.log(userId);
+				userId = jsonObject.id;
+                                console.log(userId);
 		
 				if( userId < 1 )
 				{		
@@ -62,8 +63,8 @@ function saveCookie(){
     date.setTime(date.getTime()+(minutes*60*1000));
     document.cookie = 
         "firstName=" + firstName + 
-        ";lastName=" + lastName + 
-        ";userId=" + userId + 
+        ",lastName=" + lastName + 
+        ",userId=" +  userId +
         ";expires=" + date.toGMTString();
 }
 
@@ -168,7 +169,7 @@ function addContact(){
     let lastName = document.getElementById("addLast").value;
     let phone = document.getElementById("addPhone").value;
     let email = document.getElementById("addEmail").value;
-
+    userId = document.cookie.userId;
     let contactData = {
         firstName: firstName,
         lastName: lastName,

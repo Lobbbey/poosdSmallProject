@@ -1,7 +1,7 @@
 <?php
 	//Variables taken from js file
 	$inData = getRequestInfo();
-	
+
 	$username = $inData["username"];
 	$password = $inData["password"];
 
