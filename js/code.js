@@ -245,7 +245,43 @@ function deleteContact(){
     }
 }
 
-function searchContact() {}
+function searchContact(){
+    let search = document.getElementById("searchText").value;
+    document.getElementById("contactSearchRes").innerHTML = "";
+
+    let contactList = "";
+
+    let tmp = {search: search, userId: userId};
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + '/SearchContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try{
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                document.getElementById("contactSearchRes").innerHTML = "Contact(s) have been found";
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                for(let i = 0; i < jsonObject.results.length; i++){
+                    contactList += jsonObject.results[i];
+                    if( i < jsonObject.results.length - 1){
+                        contactList += "<br />\r\n";
+                    }
+                }
+                document.getElementsByTagName("p")[0].innerHTML = contactList;
+
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch (err) {
+        document.getElementById("contactSearchRes").innerHTML = err.message;
+    }
+    
+}
+
 
 function findContacts(){}
 
