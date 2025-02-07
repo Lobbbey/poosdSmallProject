@@ -199,7 +199,9 @@ function addContact(){
     }
 }
 
-function editContact(event, form){}
+function editContact(event, form){
+    
+}
 
 function deleteContact(){
     var firstName = document.getElementById("firstName" + no).innerText;
