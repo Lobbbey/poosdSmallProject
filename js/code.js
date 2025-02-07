@@ -79,6 +79,8 @@ function signUp(event, form) {
         return;
     }
 
+    if (passwordValidation(password) == false) return;
+
     document.getElementById("signupResult").innerHTML = "";
     var hashPass = md5(password);
     let tmp = { firstName: firstName, lastName: lastName, username: login, password: hashPass };
@@ -120,6 +122,60 @@ function signUp(event, form) {
     catch (err) {
         document.getElementById("signupResult").innerHTML = err.message;
     }
+}
+
+function passwordValidation(pass){
+
+    var validationText = document.getElementById("validationText");
+
+    var minChar = /^.{8,}$/;  // At least 8 characters
+    var lowCase = /[a-z]/;  // Contains at least one lowercase letter
+    var uppCase = /[A-Z]/;  // Contains at least one uppercase letter
+    var num = /\d/;  // Contains at least one digit
+    var specialChar = /[@.#$!%*?&]/;  // Contains at least one special character
+    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+
+    //Password Validation
+    //Checks minimum character count
+    if (!minChar.test(pass)) {
+        validationText.innerText = "Password needs at least 8 characters";
+        return false;
+    }
+
+    //Checks for lower case characters
+    if (!lowCase.test(pass)) {
+        validationText.innerText = "Password needs at least 1 lowercase character";
+        return false;
+    }
+
+    //Checks for upper case characters
+    if (!uppCase.test(pass)) {
+        validationText.innerText = "Password needs at least 1 upper case letter";
+        return false;
+    }
+
+    //Checks for numbers
+    if (!num.test(pass)) {
+        validationText.innerText = "Password needs at least 1 number";
+        return false;
+    }
+
+    //Checks for special character
+    if (!specialChar.test(pass)) {
+        validationText.innerText = "Password needs at least 1 special character";
+        return false;
+    }
+
+    //Checks the full regex and ensures only the specified characters are used in the password
+    if (regex.test(pass)) {
+        validationText.innerText = " ";
+        return true;
+    }
+    else{
+        validationText.innerText = "Please use only the specified characters";
+        return false;
+    }
+
 }
 
 function saveCookie(){
