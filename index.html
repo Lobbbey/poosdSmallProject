@@ -18,6 +18,20 @@
                 <input type="text" id="lastName" placeholder="Last Name" />
                 <input type="username" id="signUpUsername" placeholder="Username" />
                 <input type="password" id="signUpPassword" placeholder="Password" />
+                <span id="tooltip">
+                    <span id="tooltipCircle">?</span>
+                    <span id="tooltipText">
+                        Password must be:
+                        <ul>
+                            <li>At least 8 characters long</li>
+                            <li>Contain at least one uppercase letter</li>
+                            <li>Contain at least one lowercase letter</li>
+                            <li>Contain at least one number</li>
+                            <li>Contain at least one special character (!@#$%^&*)</li>
+                        </ul>
+                    </span>
+                </span>
+                <p id="validationText"> &nbsp; </p>
                 <button type="submit">Sign Up</button>
                 <span id="signupResult"></span>
             </form>
