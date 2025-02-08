@@ -5,50 +5,49 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
-function doLogin(){
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	
-	let login = document.getElementById("loginName").value;
+function doLogin() {
+    userId = 0;
+    firstName = "";
+    lastName = "";
+
+    let login = document.getElementById("loginName").value;
     let password = document.getElementById("loginPassword").value;
-	var hash = md5( password );
-	
-	document.getElementById("loginResult").innerHTML = "";
+    var hash = md5(password);
 
-	let tmp = {username:login,password: hash};
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/Login.' + extension;
+    document.getElementById("loginResult").innerHTML = "";
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try{
-		xhr.onreadystatechange = function(){
-			if (this.readyState == 4 && this.status == 200){
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-                console.log(userId);
-		
-				if( userId < 1 ){		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-					return;
-				}
-		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+    let tmp = { username: login, password: hash };
+    let jsonPayload = JSON.stringify(tmp);
 
-				saveCookie();
-	
-				window.location.href = "contact_list.html";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err){
-		document.getElementById("loginResult").innerHTML = err.message;
-	}
+    let url = urlBase + '/Login.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+                userId = jsonObject.id;
+
+                if (userId < 1) {
+                    document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+                    return;
+                }
+
+                firstName = jsonObject.firstName;
+                lastName = jsonObject.lastName;
+
+                saveCookie();
+
+                window.location.href = "contact_list.html";
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch (err) {
+        document.getElementById("loginResult").innerHTML = err.message;
+    }
 }
 
 function doLogout(){
@@ -57,13 +56,6 @@ function doLogout(){
     lastName = "";
     document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
     window.location.href = "index.html";
-}
-
-function signin(event, form){
-    event.preventDefault();
-    //    console.log(form.email.value);
-    //   console.log(form.password.value);
-    return false;
 }
 
 function signUp(event, form) {
@@ -178,6 +170,23 @@ function passwordValidation(pass){
 
 }
 
+function contactValidation(firstName, lastName, phone, email) {
+    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+    var noContactErr = true;
+    //Check for empty fields
+    if(firstName == "" || lastName == "" || phone == "" || email == ""){
+        console.log("Field is empty");
+        noContactErr = false;
+    }
+
+    //Test phone and email against regex
+    if(!regex.test(phone) || !regex.test(email)){
+        noContactErr = false;
+    }
+
+    return noContactErr;
+}
+
 function saveCookie(){
     let minutes = 20;
     let date = new Date();
@@ -220,7 +229,14 @@ function addContact(){
     let lastName = document.getElementById("addLast").value;
     let phone = document.getElementById("addPhone").value;
     let email = document.getElementById("addEmail").value;
+    document.getElementById("addContactResult").innerHTML = "";
 
+
+    if (!contactValidation(firstName, lastName, phone, email)){
+        document.getElementById("addContactResult").innerHTML = "Some fields have been entered incorrectly";
+        return;
+    }
+    
     let contactData = {
         firstName: firstName,
         lastName: lastName,
@@ -241,10 +257,10 @@ function addContact(){
             if (this.readyState === 4 && this.status === 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
                 if (jsonObject.result === "Finished Successfully") {
-                    alert("Contact added successfully!");
                     document.getElementById("addingContacts").reset(); // Clear form inputs
+                    document.getElementById("addContactResult").innerHTML = "Contact added successfully!";
                 } else {
-                    alert("failed to add contact: " + jsonObject.result);
+                    document.getElementById("addContactResult").innerHTML = "Failed to add contact";
                 } 
             }
         };
@@ -256,7 +272,12 @@ function addContact(){
 }
 
 function editContact(event, form){
-    
+
+    if (!contactValidation(firstName, lastName, phone, email)) {
+        document.getElementById("editContactResult").innerHTML = "Some fields have been entered incorrectly";
+        return;
+    }
+
 }
 
 function deleteContact(){
@@ -284,7 +305,6 @@ function deleteContact(){
                 let jsonObject = JSON.parse(xhr.responseText);
                 if (jsonObject.result === "Finished Successfully") {
                     alert("Contact deleted successfully!");
-                    document.getElementById("addingContacts").reset(); // Clear form inputs
                 } else {
                     alert("failed to delete contact: " + jsonObject.result);
                 } 
@@ -297,40 +317,8 @@ function deleteContact(){
 }
 
 function searchContact(){
-    let search = document.getElementById("searchText").value;
-    document.getElementById("contactSearchRes").innerHTML = "";
+    let search = document.getElementById("searchText");
 
-    let contactList = "";
-
-    let tmp = {search: search, userId: userId};
-    let jsonPayload = JSON.stringify(tmp);
-    let url = urlBase + '/SearchContact.' + extension;
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    try{
-        xhr.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                document.getElementById("contactSearchRes").innerHTML = "Contact(s) have been found";
-                let jsonObject = JSON.parse(xhr.responseText);
-
-                for(let i = 0; i < jsonObject.results.length; i++){
-                    contactList += jsonObject.results[i];
-                    if( i < jsonObject.results.length - 1){
-                        contactList += "<br />\r\n";
-                    }
-                }
-                document.getElementsByTagName("p")[0].innerHTML = contactList;
-
-            }
-        };
-        xhr.send(jsonPayload);
-    }
-    catch (err) {
-        document.getElementById("contactSearchRes").innerHTML = err.message;
-    }
-    
 }
 
 function displayContacts(){}
