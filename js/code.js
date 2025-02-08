@@ -367,6 +367,8 @@ function deleteContact(curId){
     } catch(err){
         console.error("error deleteing contact:", err.message);
     }
+    searchContact();
+
 }
 
 function searchContact(){
