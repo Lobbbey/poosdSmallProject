@@ -318,10 +318,10 @@ function deleteContact(){
 }
 
 function searchContact(){
-    let search = document.getElementById("searchText");
+    let srch = document.getElementById("searchText").value;
     document.getElementById("contactSearchRes").innerHTML = "";
 
-    let tmp = { search: search, userId: userId };
+    let tmp = { search: srch, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContact.' + extension;
 
@@ -340,8 +340,12 @@ function searchContact(){
                     srchRes += "<tr id='row" + i + "'>"
                     srchRes += "<td id='first_Name" + i + "'><span>" + jsonObject.searchResults[i].FirstName + "</span></td>";
                     srchRes += "<td id='last_Name" + i + "'><span>" + jsonObject.searchResults[i].LastName + "</span></td>";
-                    srchRes += "<td id='email" + i + "'><span>" + jsonObject.searchResults[i].Email + "</span></td>";
                     srchRes += "<td id='phone" + i + "'><span>" + jsonObject.searchResults[i].Phone + "</span></td>";
+                    srchRes += "<td id='email" + i + "'><span>" + jsonObject.searchResults[i].Email + "</span></td>";
+                    srchRes += "<td>" +
+                        "<button type='button' id='editButton" + i + "' onclick='editContact(" + i + ")'>" + "Edit" + "</button>" +
+                        "<button type='button' id='deleteButton'" + i + "' onclick='deleteContact(" + i + ")'>" + "Delete" + "</button>" + "</td>";
+                    srchRes += "<tr/>"
                     srchRes += "<tr/>"
                 }
                 srchRes += "</table>"
