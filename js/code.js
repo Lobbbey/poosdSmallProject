@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let curContact = [];
 
 function doLogin() {
     userId = 0;
@@ -171,43 +172,43 @@ function passwordValidation(pass){
 }
 
 function contactValidation(firstName, lastName, phone, email) {
-    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
-    var noContactErr = true;
-    //Check for empty fields
-    if(firstName == "" || lastName == "" || phone == "" || email == ""){
+    var phoneRegex = /^(\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
+    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    //Check for empty or undefined fields
+    if (!firstName || !lastName || !phone || !email) {
         console.log("Field is empty");
-        noContactErr = false;
+        return false;
     }
 
     //Test phone and email against regex
-    if(!regex.test(phone) || !regex.test(email)){
-        noContactErr = false;
+    if (!phoneRegex.test(phone)) {
+        console.log("Invalid phone number");
+        return false;
     }
 
-    return noContactErr;
+    if (!emailRegex.test(email)) {
+        console.log("Invalid email address");
+        return false;
+    }
+
+    return true;
 }
 
 function saveCookie(){
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime()+(minutes*60*1000));
-    document.cookie = 
-        "firstName=" + firstName + 
-        ",lastName=" + lastName + 
-        ",userId=" + userId + 
-        ";expires=" + date.toGMTString();
+    document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie() {
     userId = -1;
     let data = document.cookie;
     let splits = data.split(",");
-
     for (var i = 0; i < splits.length; i++) {
-
         let thisOne = splits[i].trim();
         let tokens = thisOne.split("=");
-
         if (tokens[0] == "firstName") {
             firstName = tokens[1];
         }
@@ -251,7 +252,7 @@ function addContact(){
     // Create and send the request
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); //correctly set request header
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); 
     try {
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -318,7 +319,38 @@ function deleteContact(){
 
 function searchContact(){
     let search = document.getElementById("searchText");
+    document.getElementById("contactSearchRes").innerHTML = "";
 
+    let tmp = { search: search, userId: userId };
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + '/SearchContact.' + extension;
+
+    // Create and send the request
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try{
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let jsonObject = JSON.parse(xhr.responseText);
+                let srchRes = "<table border ='1'>";                      
+                for (let i = 0; i < jsonObject.searchResults.length; i++) {
+                    curContact[i] = jsonObject.searchResults[i].ID
+                    srchRes += "<tr id='row" + i + "'>"
+                    srchRes += "<td id='first_Name" + i + "'><span>" + jsonObject.searchResults[i].FirstName + "</span></td>";
+                    srchRes += "<td id='last_Name" + i + "'><span>" + jsonObject.searchResults[i].LastName + "</span></td>";
+                    srchRes += "<td id='email" + i + "'><span>" + jsonObject.searchResults[i].Email + "</span></td>";
+                    srchRes += "<td id='phone" + i + "'><span>" + jsonObject.searchResults[i].Phone + "</span></td>";
+                    srchRes += "<tr/>"
+                }
+                srchRes += "</table>"
+                document.getElementById("tbody").innerHTML = srchRes;
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err){
+        document.getElementById("contactSearchRes").innerHTML = err.message;
+    }
 }
-
-function displayContacts(){}

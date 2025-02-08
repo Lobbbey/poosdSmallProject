@@ -20,8 +20,9 @@
         <div class="container">
             <h1 class="headers">Contact List</h1>
             <div class="search-container">
-                <input id="searchText" class="input_box" type="text" placeholder="Search Contacts" onkeyup="searchContact()"/>
+                <input type="text" id="searchText" placeholder="Search Contacts"/>
                 <button onclick="searchContact()">Search</button>
+                <span id="contactSearchRes"></span>
             </div>
         </div>
     </div>
@@ -31,26 +32,35 @@
         <form id="addingContacts" action="" method="post">
             <input class="input_box" type="text" id="addFirst" placeholder="First Name" required>
             <input class="input_box" type="text" id="addLast" placeholder="Last Name" required>
-            <input class="input_box" type="text" id="addPhone" placeholder="XXX-XXX-XXXX" required pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;">
-            <input class="input_box" type="text" id="addEmail" placeholder="example@email.com" required pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;">
+            <input class="input_box" type="text" id="addPhone" placeholder="XXX-XXX-XXXX" required>
+            <input class="input_box" type="text" id="addEmail" placeholder="example@email.com" required>
             <button type="button" id="addContactButton" class="buttons font" onclick="addContact();"> Add Contact</button>
             <span id="addContactResult"></span>
         </form>
     </div>
 
-    <!-- Display Contact Table -->
-    <div class="contactTable">
-        <table id="contacts">
-            <thread>
-                <tr>
-                    <th>First&nbspName</th>
-                    <th>Last&nbspName</th>
-                    <th>Phone&nbspNumber</th>
-                    <th>Email</th>
-                </tr>
-            </thread>
-            <tbody id="contactList"></tbody>
-        </table>
+    <!-- Display Contact Card -->
+    <div class="contactCard">
+        <span id="contactSearchRes"></span>
     </div>
+
+    <!--contact table-->
+    <div class="tables">
+        <div class="tbl-content" id="contactsTable">
+            <table id="contacts" cellpadding="0" cellspacing="0" border="0">
+                <thread>
+                    <tr>
+                        <th>First&nbspName</th>
+                        <th>Last&nbspName</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th></th>
+                    </tr>
+                </thread>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+    </div>
+    
 </body>
 </html>
