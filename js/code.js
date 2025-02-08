@@ -287,24 +287,23 @@ function editContact(id) {
     emaiInput.innerHTML = "<input type='text' id='newEmail" + id + "' value='" + emaiInput.innerText + "'>";
 }
 
-
 function saveContact(curId){
-    let firstName = document.getElementById("newFirstName" + curId).value;
-    let lastName = document.getElementById("newLastName" + curId).value;
-    let phone = document.getElementById("newPhone" + curId).value;
-    let email = document.getElementById("newEmail" + curId).value;
+    let newFirstName = document.getElementById("newFirstName" + curId).value;
+    let newLastName = document.getElementById("newLastName" + curId).value;
+    let newPhone = document.getElementById("newPhone" + curId).value;
+    let newEmail = document.getElementById("newEmail" + curId).value;
 
-    if (!contactValidation(firstName, lastName, phone, email)) {
+    if (!contactValidation(newFirstName, newLastName, newPhone, newEmail)) {
         alert("Some fields have been entered incorrectly");
         return;
     }
 
     let tmp = {
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        id: curContact[curId]
+        firstName: newFirstName,
+        lastName: newLastName,
+        phone: newPhone,
+        email: newEmail,
+        ID: curContact[curId]
     };
 
     let jsonPayload = JSON.stringify(tmp);
@@ -316,7 +315,7 @@ function saveContact(curId){
         xhr.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
                 let jsonObject = JSON.parse(xhr.responseText);
-                if (jsonObject.result === "Finished Successfully"){
+                if (jsonObject.result == "Finished Successfully"){
                     alert("Updated Contact");
                     searchContact();
                 }
