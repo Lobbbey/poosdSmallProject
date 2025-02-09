@@ -396,9 +396,9 @@ function searchContact(){
                     srchRes += "<td id='phone" + i + "'><span>" + jsonObject.searchResults[i].Phone + "</span></td>";
                     srchRes += "<td id='email" + i + "'><span>" + jsonObject.searchResults[i].Email + "</span></td>";
                     srchRes += "<td>" +
-                        "<button type='button' id='editButton" + i + "' onclick='editContact(" + i + ")'>" + "Edit" + "</button>" +
-                        "<button type='button' id='saveButton" + i + "' onclick='saveContact(" + i + ")' style='display: none'>" + "Save" + "</button>" +
-                        "<button type='button' id='deleteButton'" + i + "' onclick='deleteContact(" + i + ")'>" + "Delete" + "</button>" + "</td>";
+                        "<button type='button' id='editButton" + i + "' onclick='editContact(" + i + ")' >" + "<span class='material-icons'>edit</span></button>" +
+                        "<button type='button' id='saveButton" + i + "' onclick='saveContact(" + i + ")' style='display: none'>" + "<span class='material-icons'>save</span></button>" +
+                        "<button type='button' id='deleteButton'" + i + "' onclick='deleteContact(" + i + ")'>" + "<span class='material-icons'>delete</span></button>" + "</td>";
                     srchRes += "<tr/>"
                     srchRes += "<tr/>"
                 }
@@ -419,7 +419,7 @@ function spawnStar(event){
     console.log("Spawn star")
     
     let img = document.createElement('img');
-    img.src ='Shining_Star.png';
+    img.src ='images/Shining_Star.png';
     img.id = 'star';
     
     img.width = 50;
