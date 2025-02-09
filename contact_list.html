@@ -18,7 +18,7 @@
         <button class="top-right-button" id="logoutButton" onclick="doLogout();">Logout</button>
     </header>
     <div class="search-container">
-        <input type="text" id="searchText" placeholder="Search Contacts"/>
+        <input type="text" id="searchText" oninput="searchContact()" placeholder="Search Contacts"/>
         <button id="searchButton" onclick="searchContact()">Search</button>
         <span id="contactSearchRes"></span>
     </div>
