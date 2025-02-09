@@ -1,23 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-* {
-	/*content-box is default*/
-	box-sizing: border-box;
+#star {
+	animation: shining 2s, fading 7s forwards 2s;
 }
 
-body {
-	background: #000;
-	display: flex;
-	/*justify acts on main axis (flex-direction) 
-	align-items is cross axis*/
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
-	/*vh is viewport, px is pixel*/
-	height: 100vh;
-	margin: 0px 0 0px;
-}
+@keyframes shining {
+	from{opacity: 0%; rotate: 0deg;}
+	to{opacity: 100%; rotate: 180deg;}
+  }
 
 .main {
     z-index: -1;
