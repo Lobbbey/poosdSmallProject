@@ -396,9 +396,9 @@ function searchContact(){
                     srchRes += "<td id='phone" + i + "'><span>" + jsonObject.searchResults[i].Phone + "</span></td>";
                     srchRes += "<td id='email" + i + "'><span>" + jsonObject.searchResults[i].Email + "</span></td>";
                     srchRes += "<td>" +
-                        "<button type='button' id='editButton" + i + "' onclick='editContact(" + i + ")' class='iconButton'>" + "<span class='material-symbols-outlined'>edit</span></button>"  +
-                        "<button type='button' id='saveButton" + i + "' onclick='saveContact(" + i + ")' style='display: none' class='icon-button'>" + "<span class='material-symbols-outlined'>save</span></button>" +
-                        "<button type='button' id='deleteButton'" + i + "' onclick='deleteContact(" + i + ")' class='icon-button'>" + "<span class='material-symbols-outlined'>delete</span></button>" + "</td>";
+                        "<button type='button' id='editButton" + i + "' onclick='editContact(" + i + ")' >" + "<span class='material-icons'>edit</span></button>"  +
+                        "<button type='button' id='saveButton" + i + "' onclick='saveContact(" + i + ")' style='display: none'>" + "<span class='material-icons'>save</span></button>" +
+                        "<button type='button' id='deleteButton'" + i + "' onclick='deleteContact(" + i + ")'>" + "<span class='material-icons'>delete</span></button>" + "</td>";
                     srchRes += "<tr/>"
                     srchRes += "<tr/>"
                 }
