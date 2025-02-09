@@ -298,7 +298,7 @@ input {
 
 /* Show tooltip on hover */
 #tooltip:hover #tooltipText {
-    bottom: 150%; /* Moves the tooltip higher */
+    bottom: 150%;
     visibility: visible;
     opacity: 1;
 }
@@ -311,4 +311,19 @@ input {
     100%{
         transform: scale(1.5);
     }
+}
+
+
+#star {
+	animation: shining 2s, fading 7s forwards 2s;
+}
+
+@keyframes shining {
+	from{opacity: 0%; rotate: 0deg;}
+	to{opacity: 100%; rotate: 180deg;}
+  }
+
+@keyframes fading {
+from{opacity: 100%; rotate: 0deg;}
+to{opacity: 0%; rotate: 180deg;}
 }
