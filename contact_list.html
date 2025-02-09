@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neptune's Contacts</title>
+    <title>Neptune Contacts</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/contacts.css">
     <script src="js/code.js"></script>
@@ -15,19 +15,14 @@
   </head>
 
 <body onclick="spawnStar(event)">
-    <div class="main"></div>
-    <button type="button" id="logoutButton" class="sidebuttons font" onclick="doLogout();">Logout</button>
-    <div class="page">
-        <div class="container">
-            <h1 class="headers">Contact List</h1>
-            <div class="search-container">
-                <input type="text" id="searchText" placeholder="Search Contacts"/>
-                <button onclick="searchContact()">Search</button>
-                <span id="contactSearchRes"></span>
-            </div>
-        </div>
+    <header>
+        <button class="top-right-button" id="logoutButton" onclick="doLogout();">Logout</button>
+    </header>
+    <div class="search-container">
+        <input type="text" id="searchText" oninput="searchContact()" placeholder="Search Contacts"/>
+        <button id="searchButton" onclick="searchContact()">Search</button>
+        <span id="contactSearchRes"></span>
     </div>
-    
     <!-- Display Contact Adding Fields -->
     <div class = "addContact">
         <form id="addingContacts" action="" method="post">
@@ -40,8 +35,8 @@
         </form>
     </div>
 
-    <!--contact table I would like to do something other than a table looks boring-->
-    <div class="tables">
+    <div class="container">
+        <!--contact table I would like to do something other than a table looks boring-->
         <div class="tbl-content" id="contactsTable">
             <table id="contacts" cellpadding="0" cellspacing="0" border="0">
                 <thread>
@@ -57,6 +52,6 @@
             </table>
         </div>
     </div>
-    
+    <div class="main"></div>
 </body>
 </html>

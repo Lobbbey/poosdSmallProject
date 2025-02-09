@@ -151,3 +151,32 @@ td, th {
     background-color: #D7EBBA;
     color: #000;
 }
+
+
+#star {
+    animation: shining 2s, fading 7s forwards 2s;
+}
+
+@keyframes shining {
+    from {
+        opacity: 0%;
+        rotate: 0deg;
+    }
+
+    to {
+        opacity: 100%;
+        rotate: 180deg;
+    }
+}
+
+@keyframes fading {
+    from {
+        opacity: 100%;
+        rotate: 0deg;
+    }
+
+    to {
+        opacity: 0%;
+        rotate: 180deg;
+    }
+}
