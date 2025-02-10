@@ -6,6 +6,7 @@ let firstName = "";
 let lastName = "";
 let curContact = [];
 
+
 function doLogin() {
     userId = 0;
     firstName = "";
@@ -169,18 +170,15 @@ function contactValidation(firstName, lastName, phone, email) {
 
     //Check for empty or undefined fields
     if (!firstName || !lastName || !phone || !email) {
-        console.log("Field is empty");
         return false;
     }
 
     //Test phone and email against regex
     if (!phoneRegex.test(phone)) {
-        console.log("Invalid phone number");
         return false;
     }
 
     if (!emailRegex.test(email)) {
-        console.log("Invalid email address");
         return false;
     }
 
@@ -397,9 +395,7 @@ function searchContact(){
 
 function spawnStar(event){
     if (event.target !== document.body) return;
-    
-    console.log("Spawn star")
-    
+        
     let img = document.createElement('img');
     img.src ='images/Shining_Star.png';
     img.id = 'star';
@@ -412,14 +408,85 @@ function spawnStar(event){
     document.body.appendChild(img);
     setTimeout(function() {
         img.remove();
-        console.log("Removed star");
       }, 6000);
 }
 
 function openModal() {
+    document.getElementById("addFirst").value = ""; // Clear form inputs
+    document.getElementById("addLast").value = ""; // Clear form inputs
+    document.getElementById("addPhone").value = ""; // Clear form inputs
+    document.getElementById("addEmail").value = ""; // Clear form inputs
     document.getElementById("popupModal").style.display = "block";
 }
 
 function closeModal() {
+    document.getElementById("addFirst").value = ""; // Clear form inputs
+    document.getElementById("addLast").value = ""; // Clear form inputs
+    document.getElementById("addPhone").value = ""; // Clear form inputs
+    document.getElementById("addEmail").value = ""; // Clear form inputs
     document.getElementById("popupModal").style.display = "none";
+}
+
+let contacts = []; // Holds all contacts
+let currentPage = 1;
+const pageSize = 8;
+
+function setupPagination() {
+    contacts = getContacts(); // Fetch contacts from storage or API
+    showPage(currentPage);
+}
+
+function showPage(page) {
+    let tbody = document.getElementById("tbody");
+    tbody.innerHTML = ""; // Clear table
+
+    let start = (page - 1) * pageSize;
+    let end = start + pageSize;
+    let paginatedContacts = contacts.slice(start, end);
+
+    paginatedContacts.forEach(contact => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+                    <td>${contact.firstName}</td>
+                    <td>${contact.lastName}</td>
+                    <td>${contact.phone}</td>
+                    <td>${contact.email}</td>
+                    <td><button onclick="deleteContact('${contact.id}')">Delete</button></td>
+                `;
+        tbody.appendChild(row);
+    });
+
+    document.getElementById("page-info").textContent = `Page ${currentPage} of ${Math.ceil(contacts.length / pageSize)}`;
+    document.getElementById("prevBtn").disabled = currentPage === 1;
+    document.getElementById("nextBtn").disabled = currentPage === Math.ceil(contacts.length / pageSize);
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+    }
+}
+
+function nextPage() {
+    if (currentPage < Math.ceil(contacts.length / pageSize)) {
+        currentPage++;
+        showPage(currentPage);
+    }
+}
+
+function getContacts() {
+    // Replace this with actual data fetching logic
+    return [
+        { id: 1, firstName: "John", lastName: "Doe", phone: "123-456-7890", email: "john@example.com" },
+        { id: 2, firstName: "Jane", lastName: "Smith", phone: "987-654-3210", email: "jane@example.com" },
+        { id: 3, firstName: "Alice", lastName: "Brown", phone: "555-666-7777", email: "alice@example.com" },
+        { id: 4, firstName: "Bob", lastName: "White", phone: "111-222-3333", email: "bob@example.com" },
+        { id: 5, firstName: "Charlie", lastName: "Black", phone: "444-555-6666", email: "charlie@example.com" },
+        { id: 6, firstName: "David", lastName: "Green", phone: "777-888-9999", email: "david@example.com" },
+        { id: 7, firstName: "Eve", lastName: "Blue", phone: "333-444-5555", email: "eve@example.com" },
+        { id: 8, firstName: "Frank", lastName: "Gray", phone: "999-000-1111", email: "frank@example.com" },
+        { id: 9, firstName: "Grace", lastName: "Purple", phone: "222-333-4444", email: "grace@example.com" },
+        { id: 10, firstName: "Hank", lastName: "Yellow", phone: "666-777-8888", email: "hank@example.com" }
+    ];
 }
