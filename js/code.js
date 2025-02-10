@@ -232,7 +232,6 @@ function addContact(){
     let email = document.getElementById("addEmail").value;
     document.getElementById("addContactResult").innerHTML = "";
 
-
     if (!contactValidation(firstName, lastName, phone, email)){
         document.getElementById("addContactResult").innerHTML = "Some fields have been entered incorrectly";
         return;
@@ -258,18 +257,20 @@ function addContact(){
             if (this.readyState === 4 && this.status === 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
                 if (jsonObject.result === "Finished Successfully") {
-                    document.getElementById("addingContacts").reset(); // Clear form inputs
                     document.getElementById("addContactResult").innerHTML = "Contact added successfully!";
                 } else {
                     document.getElementById("addContactResult").innerHTML = "Failed to add contact";
                 } 
             }
         };
+        closeModal();
         xhr.send(jsonPayload);
+        searchContact();
     } 
     catch (err) {
         console.error("error adding contact:", err.message);
     }
+    
 }
 
 function editContact(id) {
@@ -325,6 +326,7 @@ function saveContact(curId){
             }
         };
         xhr.send(jsonPayload);
+        searchContact();
     }
     catch(err){
         console.error("Error editing contact:", err.message);
@@ -363,11 +365,10 @@ function deleteContact(curId){
             }
         };
         xhr.send(jsonPayload);
+        searchContact();
     } catch(err){
         console.error("error deleteing contact:", err.message);
     }
-    searchContact();
-
 }
 
 function searchContact(){
@@ -432,4 +433,12 @@ function spawnStar(event){
         img.remove();
         console.log("Removed star");
       }, 6000);
+}
+
+function openModal() {
+    document.getElementById("popupModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("popupModal").style.display = "none";
 }

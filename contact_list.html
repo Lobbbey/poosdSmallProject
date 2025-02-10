@@ -10,7 +10,9 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
             readCookie();
+            searchContact();
         }, false);
+
     </script>
   </head>
 
@@ -20,19 +22,32 @@
     </header>
     <div class="search-container">
         <input type="text" id="searchText" oninput="searchContact()" placeholder="Search Contacts"/>
-        <button id="searchButton" onclick="searchContact()">Search</button>
+        <button class="open-btn" onclick="openModal()">+</button>
         <span id="contactSearchRes"></span>
-    </div>
-    <!-- Display Contact Adding Fields -->
-    <div class = "addContact">
-        <form id="addingContacts" action="" method="post">
-            <input class="input_box" type="text" id="addFirst" placeholder="First Name" required>
-            <input class="input_box" type="text" id="addLast" placeholder="Last Name" required>
-            <input class="input_box" type="text" id="addPhone" placeholder="XXX-XXX-XXXX" required>
-            <input class="input_box" type="text" id="addEmail" placeholder="example@email.com" required>
-            <button type="button" id="addContactButton" class="buttons font" onclick="addContact();"> Add Contact</button>
-            <span id="addContactResult"></span>
-        </form>
+        <!-- The Modal -->
+        <div id="popupModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h2>New Contact</h2>
+                <table id="editableTable">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr>
+                        <td><input class="input_box" type="text" id="addFirst" placeholder="First Name" required></td>
+                        <td><input class="input_box" type="text" id="addLast" placeholder="Last Name" required></td>
+                        <td><input class="input_box" type="text" id="addPhone" placeholder="XXX-XXX-XXXX" required></td>
+                        <td><input class="input_box" type="text" id="addEmail" placeholder="example@email.com" required></td>
+                    </tr>
+                </table>
+                <span id="addContactResult"></span>
+                <br>
+                <button type="button" id="addContactButton" class="buttons font" onclick="addContact();"> Add Contact</button>
+            </div>
+        </div>
     </div>
 
     <div class="container">

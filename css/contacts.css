@@ -115,58 +115,6 @@ header {
     margin: 10px;
 }
 
-.tbl-content {
-    width: 100%;
-    display: block;
-}
-
-#contacts {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 10px 0px;
-}
-
-td,
-th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    color: #fff;
-    margin: 10px;
-}
-
-#contacts tr:nth-child(even) {
-    background-color: #CCC9E7;
-}
-
-#contacts tr:nth-child(odd) {
-    background-color: #228CDB;
-}
-
-#contacts tr:hover {
-    opacity: 0.8;
-}
-
-#contacts th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #D7EBBA;
-    color: #000;
-}
-
-#contacts td input {
-    border-radius: 17px;
-    font-family: 'Montserrat';
-    outline: 0;
-    background: #fbde99;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
 @keyframes zoom {
 
     0% {
@@ -205,4 +153,118 @@ th {
         opacity: 0%;
         rotate: 180deg;
     }
+}
+
+/* Modal background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal content box */
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    text-align: center;
+    position: relative;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: red;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Button styling */
+.open-btn {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#addContactButton {
+    background-color: #ffc107;
+}
+
+.tbl-content {
+    width: 100%;
+    display: block;
+}
+
+#contacts {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+#contacts td,th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    color: #fff;
+    margin: 10px;
+}
+
+#contacts tr:nth-child(even) {
+    background-color: #CCC9E7;
+}
+
+#contacts tr:nth-child(odd) {
+    background-color: #228CDB;
+}
+
+#contacts tr:hover {
+    opacity: 0.8;
+}
+
+#contacts th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #D7EBBA;
+    color: #000;
+}
+
+#contacts td input {
+    border-radius: 17px;
+    outline: 0;
+    background: #D7EBBA;
+    width: 100%;
+    border: 0;
+    margin: 0 0 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
 }
