@@ -17,6 +17,7 @@ body {
     /*vh is viewport, px is pixel*/
     height: 100vh;
     margin: 0px 0 0px;
+    overflow: hidden;
 }
 
 .main {
@@ -73,7 +74,7 @@ header {
 
 .search-container {
     display: flex;
-    margin: 10px 10px 0px;
+    margin: 10px 10px 10px;
     min-width: 768px;
     justify-content: space-between;
 }
@@ -83,13 +84,9 @@ header {
     border-radius: 5px;
     height: 50px;
     width: 90%;
-    padding: 2px 3px 2px 3px;
+    padding: 4px;
     outline: 0;
     background-color: #f5f5f5;
-}
-
-#searchButton {
-    border-radius: 10px;
 }
 
 .container {
@@ -198,20 +195,39 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    color: black;
 }
+
+span {
+    color: black;
+}
+
 th {
     background-color: #007bff;
-    color: white;
+    color: black;
+}
+
+button {
+    cursor: pointer;
+}
+
+/*when button is held/pressed*/
+button:active {
+	/*button changes to "" size*/
+	transform: scale(0.95);
+}
+
+button:focus {
+	/*outline goes outside the box, border is inside*/
+	outline: 5px;
 }
 
 /* Button styling */
 .open-btn {
-    padding: 10px 20px;
-    margin-top: 10px;
+    padding: 7px 12px;
     background-color: #28a745;
     color: white;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
 }
 
@@ -258,13 +274,28 @@ th {
 }
 
 #contacts td input {
-    border-radius: 17px;
-    outline: 0;
+    border-radius: 5px;
     background: #D7EBBA;
     width: 100%;
+    height: 100%;
+    padding: 15px 3px;
     border: 0;
-    margin: 0 0 10px;
-    padding: 10px;
-    box-sizing: border-box;
     font-size: 14px;
+}
+
+.astronaut {
+	position: absolute;
+	width: 50px;
+	height: auto;
+	animation: float linear infinite, rotate linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }

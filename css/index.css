@@ -17,6 +17,7 @@ body {
 	/*vh is viewport, px is pixel*/
 	height: 100vh;
 	margin: 0px 0 0px;
+	overflow: hidden;
 }
 
 h1 {
@@ -51,6 +52,7 @@ button {
 	padding: 12px 45px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+	cursor: pointer;
 	margin: 10px;
 	transition: transform 80ms ease-in;
 }
@@ -338,5 +340,21 @@ input {
 	to {
 		opacity: 0%;
 		rotate: 180deg;
+	}
+}
+
+.astronaut {
+	position: absolute;
+	width: 50px;
+	height: auto;
+	animation: float linear infinite, rotate linear infinite;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
 	}
 }

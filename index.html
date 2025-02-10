@@ -4,6 +4,7 @@
         <meta charset="UTF-8"/>
         <meta name="description" content="This is a contact manager made for a course project">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="/images/neptuneIcon.png">
         <link rel="stylesheet" href="/css/index.css"/>
         <script type="text/javascript" src="js/code.js"></script>
         <script type="text/javascript" src="js/md5.js"></script>
@@ -80,6 +81,90 @@
         signInButton.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
         });
+    </script>
+    <script>
+        const NUM_ASTRONAUTS = 1; // Number of floating astronauts
+        const astronautImages = [
+            "images/koala.png",
+            "images/otter.png",
+            "images/dog.png",
+            "images/cat.png",
+            "images/bear.png"
+        ]; // Add your PNG file paths here
+
+        function createAstronaut() {
+            const astronaut = document.createElement("img");
+            astronaut.src = astronautImages[Math.floor(Math.random() * astronautImages.length)];
+            astronaut.classList.add("astronaut");
+
+            // Randomize size
+            let size = Math.random()*50 + 50;
+            astronaut.style.width = size + "px";
+
+            // Randomize rotation speed
+            let rotateSpeed = Math.random() * 5 + 2; // Between 2s to 7s
+            astronaut.style.animationDuration = `${rotateSpeed}s, linear infinite`;
+
+            // Randomize movement direction
+            let direction = Math.floor(Math.random() * 4); // 0 = Left, 1 = Right, 2 = Top, 3 = Bottom
+            let startX, startY, endX, endY;
+
+            if (direction === 0) { // From Left to Right
+                startX = "-100px";
+                startY = Math.random() * window.innerHeight + "px";
+                endX = "100vw";
+                endY = Math.random() * window.innerHeight + "px";
+            } else if (direction === 1) { // From Right to Left
+                startX = "100vw";
+                startY = Math.random() * window.innerHeight + "px";
+                endX = "-100px";
+                endY = Math.random() * window.innerHeight + "px";
+            } else if (direction === 2) { // From Top to Bottom
+                startX = Math.random() * window.innerWidth + "px";
+                startY = "-100px";
+                endX = Math.random() * window.innerWidth + "px";
+                endY = "100vh";
+            } else { // From Bottom to Top
+                startX = Math.random() * window.innerWidth + "px";
+                startY = "100vh";
+                endX = Math.random() * window.innerWidth + "px";
+                endY = "-100px";
+            }
+
+            // Apply starting position
+            astronaut.style.left = startX;
+            astronaut.style.top = startY;
+
+            // Create movement animation dynamically
+            let duration = Math.random() * 10 + 5; // 5s to 15s
+            astronaut.style.animation = `float ${duration}s linear forwards, rotate ${rotateSpeed}s linear infinite`;
+
+            // Add animation keyframes dynamically
+            const styleSheet = document.styleSheets[0];
+            const animationName = `move${Math.random().toString(36).substr(2, 5)}`;
+            const keyframes = `
+                @keyframes ${animationName} {
+                    from { left: ${startX}; top: ${startY}; }
+                    to { left: ${endX}; top: ${endY}; }
+                }
+            `;
+            styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+            astronaut.style.animationName = `${animationName}, rotate`;
+
+            // Add astronaut to the page
+            document.body.appendChild(astronaut);
+
+            // Remove astronaut after animation ends and create a new one
+            setTimeout(() => {
+                astronaut.remove();
+                createAstronaut();
+            }, duration * 1000);
+        }
+
+        // Create multiple astronauts at the start
+        for (let i = 0; i < NUM_ASTRONAUTS; i++) {
+            setTimeout(createAstronaut, Math.random() * 5000);
+        }
     </script>
     </body>
 </html>

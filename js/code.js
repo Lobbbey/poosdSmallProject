@@ -352,7 +352,6 @@ function deleteContact(curId){
 
 function searchContact(){
     let srch = document.getElementById("searchText").value;
-    document.getElementById("contactSearchRes").innerHTML = "";
 
     let tmp = { search: srch, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
@@ -389,7 +388,7 @@ function searchContact(){
         xhr.send(jsonPayload);
     }
     catch(err){
-        document.getElementById("contactSearchRes").innerHTML = err.message;
+        console.log(err.message);
     }
 }
 
@@ -427,6 +426,7 @@ function closeModal() {
     document.getElementById("popupModal").style.display = "none";
 }
 
+/*
 let contacts = []; // Holds all contacts
 let currentPage = 1;
 const pageSize = 8;
@@ -489,4 +489,4 @@ function getContacts() {
         { id: 9, firstName: "Grace", lastName: "Purple", phone: "222-333-4444", email: "grace@example.com" },
         { id: 10, firstName: "Hank", lastName: "Yellow", phone: "666-777-8888", email: "hank@example.com" }
     ];
-}
+}*/
