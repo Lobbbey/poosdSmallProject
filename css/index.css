@@ -235,9 +235,9 @@ input {
   animation-timing-function: linear;
 }
 
-#validationText {
+#validationText, #loginResult {
 	position: relative;
-    color: rgb(212, 21, 56);
+    color: rgb(255, 255, 255);
     font-size: 14px;
 	top: 10px;
   }

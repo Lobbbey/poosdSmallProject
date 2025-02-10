@@ -67,11 +67,6 @@ function signUp(event, form) {
     let login = document.getElementById("signUpUsername").value;
     let password = document.getElementById("signUpPassword").value;
 
-    if (firstName === "" || lastName === "" || login === "" || password === ""){
-        alert("Missing fields. Please try again");
-        return;
-    }
-
     if (passwordValidation(password) == false) return;
 
     document.getElementById("signupResult").innerHTML = "";
@@ -101,12 +96,9 @@ function signUp(event, form) {
 
                     saveCookie();
                     window.location.href = "contact_list.html";
-                    alert("Sign up successful!");
-                    console.log("Sign up successful!")
 
                 } else {
                     document.getElementById("signupResult").innerHTML = `Error: ${this.statusText}`;
-                    console.log(`Error: ${this.statusText}`);
                 }
             }
         };
@@ -295,7 +287,6 @@ function saveContact(curId){
     let newEmail = document.getElementById("newEmail" + curId).value;
 
     if (!contactValidation(newFirstName, newLastName, newPhone, newEmail)) {
-        alert("Some fields have been entered incorrectly");
         return;
     }
 
@@ -317,11 +308,7 @@ function saveContact(curId){
             if(this.readyState == 4 && this.status == 200){
                 let jsonObject = JSON.parse(xhr.responseText);
                 if (jsonObject.result == "Finished Successfully"){
-                    alert("Updated Contact");
                     searchContact();
-                }
-                else{
-                    alert("Failed to update contact " + jsonObject.result);
                 }
             }
         };
@@ -356,12 +343,6 @@ function deleteContact(curId){
         xhr.onreadystatechange = function(){
             if(this.readState == 4 && this.status == 200){
                 let jsonObject = JSON.parse(xhr.responseText);
-                if (jsonObject.result === "Finished Successfully") {
-                    alert("Contact deleted successfully!");
-                    searchContact();
-                } else {
-                    alert("Failed to delete contact: " + jsonObject.result);
-                } 
             }
         };
         xhr.send(jsonPayload);
